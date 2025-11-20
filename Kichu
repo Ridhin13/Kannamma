@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Kichu ❤️</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Floating hearts background */
+    .heart-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 20px;
+      animation: float 6s infinite ease-in-out;
+      opacity: 0.3;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(10deg); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      animation: fadeIn 1s ease;
+    }
+
+    .content-box {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 90%;
+      transform: translateY(0);
+      transition: all 0.3s ease;
+    }
+
+    .content-box-left {
+      margin-right: auto;
+      margin-left: 50px;
+    }
+
+    @media (max-width: 768px) {
+      .content-box-left {
+        margin-left: 20px;
+      }
+    }
+
+    .content-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .emoji-big {
+      font-size: 4rem;
+      margin: 20px 0;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    button {
+      padding: 15px 35px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      margin: 10px;
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    button:hover:before {
+      width: 300px;
+      height: 300px;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
+    }
+
+    button:active {
+      transform: translateY(-1px);
+    }
+
+    button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .no-btn {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4);
+    }
+
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .popup.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 40px;
+      border-radius: 30px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .popup.active .popup-content {
+      transform: scale(1);
+    }
+
+    .hiddenPage {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sparkle {
+      display: inline-block;
+      animation: sparkle 1.5s infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    .question-mark {
+      display: inline-block;
+      animation: wiggle 1s infinite;
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-10deg); }
+      75% { transform: rotate(10deg); }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #f0f;
+      position: absolute;
+      animation: confetti-fall 3s linear infinite;
+    }
+
+    @keyframes confetti-fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating hearts background -->
+  <div class="heart-bg" id="heartBg"></div>
+
+  <!-- PAGE 1 -->
+  <div id="page1" class="container">
+    <div class="content-box">
+      <h1>Hi Kichu ❤️</h1>
+      <div class="emoji-big">👋</div>
+      <p>I made something special… just for you 🤍</p>
+      <p style="font-size: 0.9rem; color: #888;">Click below when you're ready...</p>
+      <button onclick="openPopup()"><span>Open Your Surprise 🎁</span></button>
+    </div>
+  </div>
+
+  <!-- POPUP 1 -->
+  <div id="popup1" class="popup">
+    <div class="popup-content">
+      <div class="emoji-big">🥺</div>
+      <p>Can I ask you something?</p>
+      <button onclick="nextPage(1,2)"><span>Of course ❤️</span></button>
+    </div>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div id="page2" class="container hiddenPage">
+    <div class="content-box content-box-left">
+      <h1>Okay Kichu...</h1>
+      <div class="emoji-big question-mark">🤔</div>
+      <p>Do you know how special you are to me?</p>
+      <button onclick="nextPage(2,3)"><span>Tell me 🙈</span></button>
+    </div>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div id="page3" class="container hiddenPage">
+    <div class="content-box content-box-left">
+      <h1>You are <span class="sparkle">✨</span></h1>
+      <div class="emoji-big">💫</div>
+      <p>The prettiest girl I've ever seen... Your smile is so beautiful, it literally lights up my whole world. Honestly, you're always and always the most gorgeous person ever ❤️</p>
+      <button onclick="nextPage(3,4)"><span>Aww 🥰</span></button>
+    </div>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div id="page4" class="container hiddenPage">
+    <div class="content-box content-box-left">
+      <h1>And I promise...</h1>
+      <div class="emoji-big">☺️</div>
+      <p>I will always be here by your side. To listen to you, to understand you, to support you in everything. Whatever you're going through, you'll never have to face it alone 💕</p>
+      <button onclick="nextPage(4,5)"><span>Continue ❤️</span></button>
+    </div>
+  </div>
+
+  <!-- PAGE 5 (GAME) -->
+  <div id="page5" class="container hiddenPage">
+    <div class="content-box content-box-left">
+      <h1>Now... a little game! 🎮</h1>
+      <div class="emoji-big">💝</div>
+      <p>Find the hearts that match! Just for fun 😊</p>
+      <div id="gameBoard" style="display: grid; grid-template-columns: repeat(4, 60px); gap: 10px; justify-content: center; margin: 20px 0;">
+      </div>
+      <p id="gameResult" style="font-weight: 600; color: #764ba2; min-height: 30px;"></p>
+      <button id="nextGameBtn" onclick="nextPage(5,6)" style="display: none;"><span>Continue ❤️</span></button>
+    </div>
+  </div>
+
+  <!-- PAGE 6 (FINAL) -->
+  <div id="page6" class="container hiddenPage">
+    <div class="content-box content-box-left">
+      <h1>You won! 🎉</h1>
+      <div class="emoji-big">✨</div>
+      <p>You're really good at this! Just wanted to make you smile today 💕</p>
+      <p style="font-size: 1.1rem; margin-top: 20px; color: #764ba2;">Thank you for being you, Kannanmma. You mean the world to me ❤️</p>
+      <button onclick="finalMessage()"><span>Aww, this is so sweet 🥰</span></button>
+    </div>
+  </div>
+
+  <!-- FINAL RESPONSE POPUP -->
+  <div id="popupFinal" class="popup">
+    <div class="popup-content">
+      <div class="emoji-big" id="finalEmoji"></div>
+      <p id="finalText" style="font-size: 1.3rem; font-weight: 600;"></p>
+      <p id="finalSubtext" style="font-size: 1rem; margin-top: 15px;"></p>
+    </div>
+  </div>
+
+  <script>
+    // Create floating hearts
+    function createHearts() {
+      const heartBg = document.getElementById('heartBg');
+      const hearts = ['❤️', '💕', '💖', '💗', '💝', '💓'];
+      
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 3 + 's';
+        heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        heartBg.appendChild(heart);
+      }
+    }
+
+    function openPopup() {
+      document.getElementById('popup1').classList.add('active');
+    }
+
+    function nextPage(current, next) {
+      document.getElementById('popup1').classList.remove('active');
+      document.getElementById('page' + current).style.display = 'none';
+      document.getElementById('page' + next).style.display = 'block';
+    }
+
+    function createConfetti() {
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.background = ['#667eea', '#764ba2', '#f093fb', '#f5576c'][Math.floor(Math.random() * 4)];
+        confetti.style.animationDelay = Math.random() * 3 + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+
+    function yes() {
+      createConfetti();
+      document.getElementById('finalEmoji').textContent = '🎉';
+      document.getElementById('finalText').innerHTML = "Yayyyy!!! I'm so happy! 😍❤️";
+      document.getElementById('finalSubtext').innerHTML = "I can't wait for our date, Kichu! This is going to be amazing 💕";
+      document.getElementById('popupFinal').classList.add('active');
+    }
+
+    function no() {
+      document.getElementById('finalEmoji').textContent = '🥺';
+      document.getElementById('finalText').innerHTML = "That's okay, Kichu... 💭";
+      document.getElementById('finalSubtext').innerHTML = "I understand. I'll be here whenever you're ready. You're still incredibly special to me ❤️";
+      document.getElementById('popupFinal').classList.add('active');
+    }
+
+    // Memory Game
+    const gameEmojis = ['💖', '💕', '💗', '💝', '💖', '💕', '💗', '💝'];
+    let flippedCards = [];
+    let matchedPairs = 0;
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function initGame() {
+      const board = document.getElementById('gameBoard');
+      board.innerHTML = '';
+      const shuffled = shuffleArray([...gameEmojis]);
+      
+      shuffled.forEach((emoji, index) => {
+        const card = document.createElement('div');
+        card.style.width = '60px';
+        card.style.height = '60px';
+        card.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        card.style.borderRadius = '10px';
+        card.style.display = 'flex';
+        card.style.alignItems = 'center';
+        card.style.justifyContent = 'center';
+        card.style.fontSize = '30px';
+        card.style.cursor = 'pointer';
+        card.style.transition = 'all 0.3s ease';
+        card.dataset.emoji = emoji;
+        card.dataset.index = index;
+        card.textContent = '❤️';
+        card.onclick = () => flipCard(card);
+        board.appendChild(card);
+      });
+    }
+
+    function flipCard(card) {
+      if (flippedCards.length >= 2 || card.classList.contains('flipped')) return;
+      
+      card.textContent = card.dataset.emoji;
+      card.style.background = 'white';
+      card.classList.add('flipped');
+      flippedCards.push(card);
+
+      if (flippedCards.length === 2) {
+        setTimeout(checkMatch, 600);
+      }
+    }
+
+    function checkMatch() {
+      const [card1, card2] = flippedCards;
+      
+      if (card1.dataset.emoji === card2.dataset.emoji) {
+        card1.style.opacity = '0.5';
+        card2.style.opacity = '0.5';
+        matchedPairs++;
+        
+        if (matchedPairs === 4) {
+          document.getElementById('gameResult').textContent = 'Perfect! You found them all! 🎉';
+          document.getElementById('nextGameBtn').style.display = 'inline-block';
+          createConfetti();
+        }
+      } else {
+        card1.textContent = '❤️';
+        card1.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        card2.textContent = '❤️';
+        card2.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+      }
+      
+      card1.classList.remove('flipped');
+      card2.classList.remove('flipped');
+      flippedCards = [];
+    }
+
+    function finalMessage() {
+      createConfetti();
+      document.getElementById('finalEmoji').textContent = '💕';
+      document.getElementById('finalText').innerHTML = "I'm so glad you liked it! 😊";
+      document.getElementById('finalSubtext').innerHTML = "You deserve all the happiness in the world, Kannanmma. Always remember how special you are to me ❤️✨";
+      document.getElementById('popupFinal').classList.add('active');
+    }
+
+    // Initialize game when page 5 is shown
+    const originalNextPage = nextPage;
+    nextPage = function(current, next) {
+      originalNextPage(current, next);
+      if (next === 5) {
+        setTimeout(initGame, 300);
+      }
+    };
+
+    // Initialize
+    createHearts();
+  </script>
+</body>
+</html>
